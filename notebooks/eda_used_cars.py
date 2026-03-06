@@ -18,18 +18,18 @@ df = df.dropna(subset=["price(in lakhs)"])
 df = df.drop_duplicates()
 
 # Remove unrealistic price values
-df = df[df["price(in lakhs)"] > 0]                    # price > 0
-df = df[df["price(in lakhs)"] < 200]                  # price < 200 lakhs
+df = df[df["price(in lakhs)"] > 0] # price > 0
+df = df[df["price(in lakhs)"] < 200] # price < 200 lakhs
 
 # Remove unrealistic kms_driven
-df = df[df["kms_driven"] >= 0]                        # kms >= 0
-df = df[df["kms_driven"] <= 500000]                   # kms <= 500000
+df = df[df["kms_driven"] >= 0] # kms >= 0
+df = df[df["kms_driven"] <= 500000] # kms <= 500000
 
 # 3. Create new features
-CURRENT_YEAR = 2026  # change if needed
+CURRENT_YEAR = 2026  
 df["car_age"] = CURRENT_YEAR - df["registration_year"]
 
-# Optional: price per km
+# price per km
 df["price_per_km"] = df["price(in lakhs)"] * 100000 / df["kms_driven"]
 df = df[df["price_per_km"] < 100000]  # cap unrealistic price_per_km
 
